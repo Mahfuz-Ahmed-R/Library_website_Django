@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mt-5">
+  <div class="col-6">
+    <h1>Library Website</h1>
+    <p>
+      Welcome to the Community Library, a haven for book lovers and knowledge seekers! Our library offers an extensive collection of books, e-books, and audiobooks across various genres and subjects, catering to readers of all ages. With state-of-the-art facilities, comfortable reading spaces, and free Wi-Fi, it's the perfect place to immerse yourself in literature. We also host regular events, workshops, and book clubs to foster a love for reading and lifelong learning. Our dedicated staff is here to assist you in finding the perfect read or research material. Join us and explore a world of endless possibilities!
+    </p>
+  </div>
+  <div class="col-6">
+    <img
+      src="https://plus.unsplash.com/premium_photo-1677567996070-68fa4181775a?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      alt="library image"
+      style="width: 90%"
+    />
+  </div>
+</div>
+<div class="d-flex flex-wrap justify-content-around mt-5 mb-5">
+  {% for i in category %}
+  <a
+    href="{% url 'category_wise_books' i.slug %}"
+    class="btn btn-info fw-bold"
+    id="{{ i.id }}"
+  >{{ i.name }}</a>
+  {% endfor %}
+</div>
+<div class="d-flex flex-wrap justify-content-center align-items-center">
+  {% for book in books %}
+    <div class="card d-flex justify-content-center align-items-center m-2" style="width:300px; height:auto">
+      <img
+        src="{{ book.image.url }}"
+        class="card-img-top"
+        alt="..."
+        style="width: 180px"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ book.title }}</h5>
+        <a href="{% url 'details' book.id %}" class="btn btn-primary">Details</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

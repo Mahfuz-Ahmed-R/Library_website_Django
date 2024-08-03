@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row d-flex">
+  <div class="col-md-6">
+    <div class="card">
+      <img
+        src="{{ book.image.url }}"
+        class="card-img-top"
+        alt="..."
+        style="width: 180px"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ book.title }}</h5>
+        <p class="card-text">Description: {{ book.description }}</p>
+        <p class="card-text">Available: {{ book.available_copies }}</p>
+        <p class="card-text">Borrow Price: {{ book.borrowing_price }}</p>
+        <p>
+          Categories: {% for c in book.category.all %}
+          <button class="btn btn-warning" disabled>{{ c.name }}</button>
+          {% endfor %}
+        </p>
+        <a href="{% url 'borrow' book.id %}" class="btn btn-primary">Borrow</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h3 class="card-title">Ratings</h3>
+    {% for r in rating %}
+    <div class="card">
+      <div class="card-body">
+        <p>Username: {{ r.user.username }}</p>
+        <p>Rate: {{ r.rate }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

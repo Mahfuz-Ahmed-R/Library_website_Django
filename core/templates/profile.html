@@ -1,0 +1,40 @@
+{%extends 'base.html'%} {%block content%}{%load crispy_forms_tags%}
+<h2>Profile Page</h2>
+<div
+  class="d-flex flex-wrap justify-content-evenly align-items-center"
+  style="border: 1px solid gray; height: 200px"
+>
+  <div>
+    <p><span class="fw-bold">Username:</span> {{user.username}}</p>
+    <p><span class="fw-bold">Name:</span> {{user.first_name}} {{user.last_name}}</p>
+    <p><span class="fw-bold">Email:</span> {{user.email}}</p>
+    <p><span class="fw-bold">Balance:</span> {{account.balance}}</p>
+  </div>
+  <div>
+    <a class="btn btn-info" href="{%url 'edit'%}"> Edit Profile </a>
+    <a class="btn btn-primary" href="{%url 'password'%}">Change Password</a>
+  </div>
+</div>
+
+
+<div class="mt-5">
+  {%for b in borrowed_books%}
+<div class="d-flex justify-content-center align-items-center">
+<div class="card d-flex justify-content-center align-items-center m-2" style="width:300px; height:auto">
+  <img
+    src="{{b.book.image.url}}"
+    class="card-img-top"
+    alt="..."
+    style="width: 180px"
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{b.book.title}}</h5>
+    <p>Borrowed: {{b.borrow_count}}</p>
+    <p>Borrowing Date: {{b.borrowing_date}}</p>
+    <a href="{%url 'return' b.book.id%}" class="btn btn-danger">Return</a>
+    <a href="{%url 'rating' b.book.id%}" class="btn btn-info">Rate?</a>
+  </div>
+</div>
+  {%endfor%}
+</div>
+{%endblock%}
